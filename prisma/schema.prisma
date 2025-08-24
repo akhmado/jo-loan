@@ -9,41 +9,47 @@ datasource db {
 }
 
 model User {
-  id            String    @id
+  id String @id
+
   name          String
   email         String
   emailVerified Boolean
   image         String?
-  createdAt     DateTime
-  updatedAt     DateTime
-  sessions      Session[]
-  accounts      Account[]
+
+  sessions Session[]
+  accounts Account[]
+  loans    Loan[]
+
+  createdAt DateTime
+  updatedAt DateTime
 
   @@unique([email])
   @@map("user")
 }
 
 model Session {
-  id        String   @id
+  id String @id
+
   expiresAt DateTime
   token     String
-  createdAt DateTime
-  updatedAt DateTime
   ipAddress String?
   userAgent String?
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime
+  updatedAt DateTime
 
   @@unique([token])
   @@map("session")
 }
 
 model Account {
-  id                    String    @id
+  id String @id
+
   accountId             String
   providerId            String
-  userId                String
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   accessToken           String?
   refreshToken          String?
   idToken               String?
@@ -51,8 +57,12 @@ model Account {
   refreshTokenExpiresAt DateTime?
   scope                 String?
   password              String?
-  createdAt             DateTime
-  updatedAt             DateTime
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime
+  updatedAt DateTime
 
   @@map("account")
 }
@@ -66,4 +76,36 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+model Loan {
+  id String @id @default(cuid())
+
+  amount         Decimal
+  interestRate   Decimal
+  termMonths     Int
+  status         LoanStatus @default(PENDING)
+  purpose        String?
+  monthlyPayment Decimal?
+  totalInterest  Decimal?
+  totalAmount    Decimal?
+  startDate      DateTime?
+  endDate        DateTime?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("loan")
+}
+
+enum LoanStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  ACTIVE
+  COMPLETED
+  DEFAULTED
 }
