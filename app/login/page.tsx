@@ -2,6 +2,7 @@
 
 import { LoginForm, LoginFormData } from "@/components/login-form";
 import { authClient } from "@/lib/auth/client-auth";
+import { PAGES } from "@/lib/constants";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
@@ -16,7 +17,7 @@ export default function Page() {
       return;
     }
 
-    router.replace("/dashboard");
+    router.replace(PAGES.DASHBOARD);
   };
 
   return (
