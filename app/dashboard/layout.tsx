@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/sidebar";
 import { Separator } from "@radix-ui/react-separator";
 import { PropsWithChildren } from "react";
+import Link from "next/link";
+import { PAGES } from "@/lib/constants";
 
 export default function DashboardLayout({ children }: PropsWithChildren) {
   return (
@@ -42,7 +44,9 @@ export default function DashboardLayout({ children }: PropsWithChildren) {
         <div className="px-4">
           <div className="flex justify-between items-center">
             <CardTitle>Loans</CardTitle>
-            <Button>Create New</Button>
+            <Link href={PAGES.CREATE_NEW_LONE}>
+              <Button>Create New</Button>
+            </Link>
           </div>
           <div>{children}</div>
         </div>
