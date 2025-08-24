@@ -35,6 +35,7 @@ export default async function Page() {
   const { user } = await getUserOrRedirect();
   const loans = await prisma.loan.findMany({
     where: { userId: user.id },
+    orderBy: { createdAt: 'desc' }
   });
 
   return (

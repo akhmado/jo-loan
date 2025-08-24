@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -22,78 +21,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { LoanStatus } from "@/lib/generated/prisma";
-
-const loanFormSchema = z.object({
-  amount: z
-    .string()
-    .min(1, "Amount is required")
-    .refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
-      message: "Amount must be a positive number",
-    }),
-  interestRate: z
-    .string()
-    .min(1, "Interest rate is required")
-    .refine(
-      (val) => !isNaN(Number(val)) && Number(val) > 0 && Number(val) <= 100,
-      {
-        message: "Interest rate must be between 0 and 100",
-      }
-    ),
-  termMonths: z
-    .string()
-    .min(1, "Term is required")
-    .refine(
-      (val) => !isNaN(Number(val)) && Number(val) > 0 && Number(val) <= 480,
-      {
-        message: "Term must be between 1 and 480 months",
-      }
-    ),
-  purpose: z.string().optional(),
-  status: z
-    .enum([
-      LoanStatus.PENDING,
-      LoanStatus.APPROVED,
-      LoanStatus.REJECTED,
-      LoanStatus.ACTIVE,
-      LoanStatus.COMPLETED,
-      LoanStatus.DEFAULTED,
-    ])
-    .default(LoanStatus.PENDING),
-  monthlyPayment: z
-    .string()
-    .optional()
-    .refine((val) => !val || (!isNaN(Number(val)) && Number(val) > 0), {
-      message: "Monthly payment must be a positive number",
-    }),
-  totalInterest: z
-    .string()
-    .optional()
-    .refine((val) => !val || (!isNaN(Number(val)) && Number(val) >= 0), {
-      message: "Total interest must be a positive number",
-    }),
-  totalAmount: z
-    .string()
-    .optional()
-    .refine((val) => !val || (!isNaN(Number(val)) && Number(val) > 0), {
-      message: "Total amount must be a positive number",
-    }),
-  startDate: z.string().optional(),
-  endDate: z.string().optional(),
-});
-
-export type LoanFormData = z.infer<typeof loanFormSchema>;
+import { LoanFormData, loanFormSchema } from "@/lib/schemas/loan";
 
 interface LoanFormProps {
   onSubmit: (data: LoanFormData) => Promise<void>;
   initialValues?: Partial<LoanFormData>;
-  isSubmitting?: boolean;
 }
 
-export function LoanForm({
-  onSubmit,
-  initialValues,
-  isSubmitting = false,
-}: LoanFormProps) {
+export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
   const form = useForm<LoanFormData>({
     resolver: zodResolver(loanFormSchema),
     defaultValues: {
@@ -110,6 +45,8 @@ export function LoanForm({
       ...initialValues,
     },
   });
+
+  const isSubmitting = form.formState.isSubmitting;
 
   return (
     <Form {...form}>
