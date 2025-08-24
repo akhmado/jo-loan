@@ -206,6 +206,7 @@ export function LoanForm({
                     </SelectItem>
                   </SelectContent>
                 </Select>
+                <FormDescription>Current status</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
