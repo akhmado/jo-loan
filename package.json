@@ -4,12 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:db:start": "prisma dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "dev:db:start": "prisma dev",
+    "dev:db:studio": "prisma studio",
+    "generate-auth-tables": "npx @better-auth/cli generate",
+    "create-user": "tsx ./scripts/create-user.ts"
   },
   "dependencies": {
+    "@prisma/client": "^6.14.0",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "better-auth": "^1.3.7",
@@ -31,6 +35,7 @@
     "eslint-config-next": "15.5.0",
     "prisma": "^6.14.0",
     "tailwindcss": "^4",
+    "tsx": "^4.20.5",
     "tw-animate-css": "^1.3.7",
     "typescript": "^5"
   }
