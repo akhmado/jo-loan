@@ -5,6 +5,7 @@ import { getUserOrRedirect } from "@/lib/auth/server-auth";
 import { loanFormSchema, LoanFormData } from "../schemas/loan";
 import { notFound } from "next/navigation";
 
+//TODO: Refactor create/update functions
 export async function createLoan(data: LoanFormData) {
   try {
     const { user } = await getUserOrRedirect();
@@ -73,6 +74,75 @@ export async function getDetailedLoanById(id: string) {
     }
 
     return loan;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function updateLoanById(id: string, data: LoanFormData) {
+  try {
+    const { user } = await getUserOrRedirect();
+
+    // Check if loan exists and belongs to user
+    const existingLoan = await prisma.loan.findFirst({
+      where: {
+        id,
+        userId: user.id,
+      },
+    });
+
+    if (!existingLoan) {
+      return notFound();
+    }
+
+    // Validate data using the same schema as the form
+    const validatedData = loanFormSchema.parse(data);
+
+    // Parse numeric values
+    const amount = parseFloat(validatedData.amount);
+    const interestRate = parseFloat(validatedData.interestRate);
+    const termMonths = parseInt(validatedData.termMonths);
+
+    // Parse optional numeric fields
+    const monthlyPayment = validatedData.monthlyPayment
+      ? parseFloat(validatedData.monthlyPayment)
+      : null;
+    const totalInterest = validatedData.totalInterest
+      ? parseFloat(validatedData.totalInterest)
+      : null;
+    const totalAmount = validatedData.totalAmount
+      ? parseFloat(validatedData.totalAmount)
+      : null;
+
+    // Parse optional dates
+    const startDate = validatedData.startDate
+      ? new Date(validatedData.startDate)
+      : null;
+    const endDate = validatedData.endDate
+      ? new Date(validatedData.endDate)
+      : null;
+
+    const updatedLoan = await prisma.loan.update({
+      where: {
+        id,
+        userId: user.id,
+      },
+      data: {
+        amount,
+        interestRate,
+        termMonths,
+        purpose: validatedData.purpose || null,
+        status: validatedData.status,
+        monthlyPayment,
+        totalInterest,
+        totalAmount,
+        startDate,
+        endDate,
+      },
+    });
+
+    return updatedLoan;
   } catch (error) {
     console.log(error);
     throw error;

@@ -20,11 +20,10 @@ import { CardTitle } from "@/components/ui/card";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { PAGES } from "@/lib/constants";
 import { Separator } from "@radix-ui/react-separator";
-import { formatDate, sleep } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 import { StatusBadge } from "@/components/status-badge";
 
 export default async function Page() {
-  await sleep(5000);
   const { user } = await getUserOrRedirect();
   const loans = await prisma.loan.findMany({
     where: { userId: user.id },

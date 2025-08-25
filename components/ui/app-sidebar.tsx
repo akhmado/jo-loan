@@ -3,9 +3,9 @@
 import * as React from "react";
 import { Command, Frame } from "lucide-react";
 
-import { NavProjects } from "@/components/nav-projects";
-import { NavUser } from "@/components/nav-user";
-import { TeamSwitcher } from "@/components/team-switcher";
+import { NavProjects } from "@/components/ui/nav-projects";
+import { NavUser } from "@/components/ui/nav-user";
+import { TeamSwitcher } from "@/components/ui/team-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -23,7 +23,7 @@ const data = {
   },
   teams: [
     {
-      name: "Evil Corp.",
+      name: "Happy Corp.",
       logo: Command,
       plan: "Free",
     },

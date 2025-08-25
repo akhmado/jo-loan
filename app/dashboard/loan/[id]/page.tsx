@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@radix-ui/react-separator";
-import { formatDate, sleep } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 import { StatusBadge } from "@/components/status-badge";
 
 interface LoanDetailPageProps {
@@ -23,8 +23,8 @@ interface LoanDetailPageProps {
 }
 
 export default async function LoanDetailPage({ params }: LoanDetailPageProps) {
-  await sleep(5000);
-  const loan = await getDetailedLoanById((await params).id);
+  const { id } = await params;
+  const loan = await getDetailedLoanById(id);
 
   return (
     <div>
