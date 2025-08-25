@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/db";
 import { getUserOrRedirect } from "@/lib/auth/server-auth";
 import { loanFormSchema, LoanFormData } from "../schemas/loan";
+import { notFound } from "next/navigation";
 
 export async function createLoan(data: LoanFormData) {
   try {
@@ -50,6 +51,28 @@ export async function createLoan(data: LoanFormData) {
         userId: user.id,
       },
     });
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getDetailedLoanById(id: string) {
+  try {
+    const { user } = await getUserOrRedirect();
+
+    const loan = await prisma.loan.findFirst({
+      where: {
+        id,
+        userId: user.id,
+      },
+    });
+
+    if (!loan) {
+      return notFound();
+    }
+
+    return loan;
   } catch (error) {
     console.log(error);
     throw error;

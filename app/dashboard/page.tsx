@@ -7,31 +7,24 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { LoanStatus } from "@/lib/generated/prisma";
 import { prisma } from "@/lib/db";
 import { getUserOrRedirect } from "@/lib/auth/server-auth";
-import { ClassNameValue } from "tailwind-merge";
-
-const getStatusBadge = (status: LoanStatus) => {
-  const statusColors: Record<LoanStatus, ClassNameValue> = {
-    PENDING: "bg-yellow-100 text-yellow-800",
-    APPROVED: "bg-blue-100 text-blue-800",
-    REJECTED: "bg-red-100 text-red-800",
-    ACTIVE: "bg-green-100 text-green-800",
-    COMPLETED: "bg-gray-100 text-gray-800",
-    DEFAULTED: "bg-red-100 text-red-800",
-  };
-
-  return (
-    <span
-      className={`rounded-full px-2 py-1 text-xs font-medium ${statusColors[status]}`}
-    >
-      {status}
-    </span>
-  );
-};
+import Link from "next/link";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbPage,
+} from "@/components/ui/breadcrumb";
+import { CardTitle } from "@/components/ui/card";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { PAGES } from "@/lib/constants";
+import { Separator } from "@radix-ui/react-separator";
+import { formatDate, sleep } from "@/lib/utils";
+import { StatusBadge } from "@/components/status-badge";
 
 export default async function Page() {
+  await sleep(5000);
   const { user } = await getUserOrRedirect();
   const loans = await prisma.loan.findMany({
     where: { userId: user.id },
@@ -40,55 +33,88 @@ export default async function Page() {
 
   return (
     <div>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>ID</TableHead>
-            <TableHead>Amount</TableHead>
-            <TableHead>Interest Rate</TableHead>
-            <TableHead>Term</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Purpose</TableHead>
-            <TableHead>Monthly Payment</TableHead>
-            <TableHead>Created</TableHead>
-            <TableHead>Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {loans.map((loan) => (
-            <TableRow key={loan.id}>
-              <TableCell className='text-sm text-gray-600'>
-                {loan.id.slice(-8)}
-              </TableCell>
-              <TableCell className='font-medium'>
-                ${loan.amount.toLocaleString()}
-              </TableCell>
-              <TableCell>{loan.interestRate.toFixed(2)}%</TableCell>
-              <TableCell>{loan.termMonths} months</TableCell>
-              <TableCell>{getStatusBadge(loan.status)}</TableCell>
-              <TableCell>{loan.purpose || "-"}</TableCell>
-              <TableCell>
-                {loan.monthlyPayment
-                  ? `$${loan.monthlyPayment.toLocaleString()}`
-                  : "-"}
-              </TableCell>
-              <TableCell className='text-sm text-gray-600'>
-                {loan.createdAt.toLocaleDateString()}
-              </TableCell>
-              <TableCell>
-                <div className='flex gap-2'>
-                  <Button variant='outline' size='sm'>
-                    View
-                  </Button>
-                  <Button variant='outline' size='sm'>
-                    Edit
-                  </Button>
-                </div>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      <div>
+        <header className='flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12'>
+          <div className='flex items-center gap-2 px-4'>
+            <SidebarTrigger className='-ml-1' />
+            <Separator
+              orientation='vertical'
+              className='mr-2 data-[orientation=vertical]:h-4'
+            />
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Loans</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+        </header>
+      </div>
+
+      <div className='px-4'>
+        <div className='flex items-center justify-between'>
+          <CardTitle>Loans</CardTitle>
+          <Link href={PAGES.CREATE_NEW_LONE}>
+            <Button>Create New</Button>
+          </Link>
+        </div>
+        <div>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>ID</TableHead>
+                <TableHead>Amount</TableHead>
+                <TableHead>Interest Rate</TableHead>
+                <TableHead>Term</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Purpose</TableHead>
+                <TableHead>Monthly Payment</TableHead>
+                <TableHead>Created</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {loans.map((loan) => (
+                <TableRow key={loan.id}>
+                  <TableCell className='text-sm text-gray-600'>
+                    {loan.id.slice(-8)}
+                  </TableCell>
+                  <TableCell className='font-medium'>
+                    ${loan.amount.toLocaleString()}
+                  </TableCell>
+                  <TableCell>{loan.interestRate.toFixed(2)}%</TableCell>
+                  <TableCell>{loan.termMonths} months</TableCell>
+                  <TableCell>
+                    <StatusBadge status={loan.status} />
+                  </TableCell>
+                  <TableCell>{loan.purpose || "-"}</TableCell>
+                  <TableCell>
+                    {loan.monthlyPayment
+                      ? `$${loan.monthlyPayment.toLocaleString()}`
+                      : "-"}
+                  </TableCell>
+                  <TableCell className='text-sm text-gray-600'>
+                    {formatDate(loan.createdAt)}
+                  </TableCell>
+                  <TableCell>
+                    <div className='flex gap-2'>
+                      <Button variant='outline' size='sm' asChild>
+                        <Link href={`/dashboard/loan/${loan.id}`}>View</Link>
+                      </Button>
+                      <Button variant='outline' size='sm' asChild>
+                        <Link href={`/dashboard/loan/${loan.id}/edit`}>
+                          Edit
+                        </Link>
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </div>
     </div>
   );
 }
