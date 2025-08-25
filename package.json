@@ -9,6 +9,7 @@
     "lint": "eslint",
     "dev:db:start": "prisma dev",
     "dev:db:studio": "prisma studio",
+    "prisma:generate": "prisma generate --no-engine",
     "generate-auth-tables": "npx @better-auth/cli generate",
     "create-user": "tsx ./scripts/create-user.ts",
     "prettier": "prettier --check --ignore-path .gitignore .",
@@ -17,6 +18,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
     "@prisma/client": "^6.14.0",
+    "@prisma/nextjs-monorepo-workaround-plugin": "^6.14.0",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-collapsible": "^1.1.12",
