@@ -1,103 +1,99 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight, Shield, BarChart3, CheckCircle, DollarSign } from "lucide-react";
+import { PAGES } from "@/lib/constants";
 
 export default function Home() {
   return (
-    <div className='grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-sans sm:p-20'>
-      <main className='row-start-2 flex flex-col items-center gap-[32px] sm:items-start'>
-        <Image
-          className='dark:invert'
-          src='/next.svg'
-          alt='Next.js logo'
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className='list-inside list-decimal text-center font-mono text-sm/6 sm:text-left'>
-          <li className='mb-2 tracking-[-.01em]'>
-            Get started by editing{" "}
-            <code className='rounded bg-black/[.05] px-1 py-0.5 font-mono font-semibold dark:bg-white/[.06]'>
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className='tracking-[-.01em]'>
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className='flex flex-col items-center gap-4 sm:flex-row'>
-          <a
-            className='bg-foreground text-background flex h-10 items-center justify-center gap-2 rounded-full border border-solid border-transparent px-4 text-sm font-medium transition-colors hover:bg-[#383838] sm:h-12 sm:w-auto sm:px-5 sm:text-base dark:hover:bg-[#ccc]'
-            href='https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <Image
-              className='dark:invert'
-              src='/vercel.svg'
-              alt='Vercel logomark'
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className='flex h-10 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-4 text-sm font-medium transition-colors hover:border-transparent hover:bg-[#f2f2f2] sm:h-12 sm:w-auto sm:px-5 sm:text-base md:w-[158px] dark:border-white/[.145] dark:hover:bg-[#1a1a1a]'
-            href='https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className='row-start-3 flex flex-wrap items-center justify-center gap-[24px]'>
-        <a
-          className='flex items-center gap-2 hover:underline hover:underline-offset-4'
-          href='https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <Image
-            aria-hidden
-            src='/file.svg'
-            alt='File icon'
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className='flex items-center gap-2 hover:underline hover:underline-offset-4'
-          href='https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <Image
-            aria-hidden
-            src='/window.svg'
-            alt='Window icon'
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className='flex items-center gap-2 hover:underline hover:underline-offset-4'
-          href='https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <Image
-            aria-hidden
-            src='/globe.svg'
-            alt='Globe icon'
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+    <div className='min-h-screen bg-gradient-to-br from-background to-muted p-4 md:p-8'>
+      <div className='mx-auto max-w-6xl'>
+        <main className='flex flex-col items-center text-center'>
+          {/* Hero Section */}
+          <div className='mb-12 flex flex-col items-center space-y-6'>
+            <Badge variant="secondary" className='mb-4 px-4 py-2'>
+              AI GENERATED PAGE
+            </Badge>
+            
+            <div className='mb-8 rounded-full bg-primary/10 p-8'>
+              <DollarSign className='h-16 w-16 text-primary' aria-hidden='true' />
+            </div>
+            
+            <h1 className='mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl'>
+              Welcome to{" "}
+              <span className='bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent'>
+                Loan Management
+              </span>
+            </h1>
+            
+            <p className='mb-8 max-w-2xl text-lg text-muted-foreground sm:text-xl'>
+              Streamline your lending operations with our comprehensive loan management system. 
+              Create, track, and manage loans with ease and efficiency.
+            </p>
+            
+            <div className='flex flex-col gap-4 sm:flex-row'>
+              <Button asChild size='lg' className='group'>
+                <Link href={PAGES.DASHBOARD}>
+                  Get Started
+                  <ArrowRight className='ml-2 h-4 w-4 transition-transform group-hover:translate-x-1' />
+                </Link>
+              </Button>
+              
+              <Button variant='outline' size='lg' asChild>
+                <Link href={PAGES.LOGIN}>
+                  Sign In
+                </Link>
+              </Button>
+            </div>
+          </div>
+          
+          {/* Features Grid */}
+          <div className='mt-16 grid w-full grid-cols-1 gap-6 md:grid-cols-3'>
+            <Card className='group transition-all duration-200 hover:shadow-lg'>
+              <CardHeader>
+                <div className='mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/20'>
+                  <CheckCircle className='h-6 w-6 text-green-600 dark:text-green-400' />
+                </div>
+                <CardTitle className='text-left'>Easy Management</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className='text-left text-muted-foreground'>
+                  Create, view, edit, and delete loans with an intuitive interface designed for efficiency
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className='group transition-all duration-200 hover:shadow-lg'>
+              <CardHeader>
+                <div className='mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900/20'>
+                  <BarChart3 className='h-6 w-6 text-blue-600 dark:text-blue-400' />
+                </div>
+                <CardTitle className='text-left'>Comprehensive Tracking</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className='text-left text-muted-foreground'>
+                  Monitor loan status, payments, and financial calculations with detailed analytics
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className='group transition-all duration-200 hover:shadow-lg'>
+              <CardHeader>
+                <div className='mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-orange-100 dark:bg-orange-900/20'>
+                  <Shield className='h-6 w-6 text-orange-600 dark:text-orange-400' />
+                </div>
+                <CardTitle className='text-left'>Secure & Reliable</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className='text-left text-muted-foreground'>
+                  Built with security best practices and robust authentication for peace of mind
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }
