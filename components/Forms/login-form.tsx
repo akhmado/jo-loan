@@ -12,6 +12,8 @@ import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import Link from "next/link";
+import { PAGES } from "@/lib/constants";
 
 const loginSchema = z.object({
   email: z.email({ message: "Please enter a valid email address" }),
@@ -43,38 +45,38 @@ export function LoginForm({ className, onSubmit, ...props }: LoginFormProps) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form 
+            onSubmit={handleSubmit(onSubmit)}
+            aria-label="Login form"
+            noValidate
+          >
             <div className='flex flex-col gap-6'>
               <div className='grid gap-3'>
                 <Label htmlFor='email'>Email</Label>
                 <Input
                   id='email'
                   type='email'
-                  placeholder='m@example.com'
+                  placeholder='john.doe@example.com'
+                  aria-describedby='email-error'
                   {...register("email")}
                 />
                 {errors.email && (
-                  <p className='text-sm text-red-500'>{errors.email.message}</p>
+                  <p id='email-error' className='text-sm text-red-500' role="alert">
+                    {errors.email.message}
+                  </p>
                 )}
               </div>
               <div className='grid gap-3'>
-                <div className='flex items-center'>
-                  <Label htmlFor='password'>Password</Label>
-                  <a
-                    href='#'
-                    className='ml-auto inline-block text-sm underline-offset-4 hover:underline'
-                  >
-                    Forgot your password?
-                  </a>
-                </div>
+                <Label htmlFor='password'>Password</Label>
                 <Input
                   id='password'
                   type='password'
-                  placeholder='******'
+                  placeholder='Enter your password'
+                  aria-describedby='password-error'
                   {...register("password")}
                 />
                 {errors.password && (
-                  <p className='text-sm text-red-500'>
+                  <p id='password-error' className='text-sm text-red-500' role="alert">
                     {errors.password.message}
                   </p>
                 )}
@@ -84,6 +86,7 @@ export function LoginForm({ className, onSubmit, ...props }: LoginFormProps) {
                   type='submit'
                   className='w-full'
                   disabled={isSubmitting}
+                  aria-label={isSubmitting ? "Logging in..." : "Login to account"}
                 >
                   {isSubmitting ? "Logging in..." : "Login"}
                 </Button>
@@ -91,9 +94,9 @@ export function LoginForm({ className, onSubmit, ...props }: LoginFormProps) {
             </div>
             <div className='mt-4 text-center text-sm'>
               Don&apos;t have an account?{" "}
-              <a href='#' className='underline underline-offset-4'>
+              <Link href={PAGES.SIGNUP} className='underline underline-offset-4'>
                 Sign up
-              </a>
+              </Link>
             </div>
           </form>
         </CardContent>

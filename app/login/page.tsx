@@ -1,6 +1,6 @@
 "use client";
 
-import { LoginForm, LoginFormData } from "@/components/login-form";
+import { LoginForm, LoginFormData } from "@/components/Forms/login-form";
 import { authClient } from "@/lib/auth/client-auth";
 import { PAGES } from "@/lib/constants";
 import { useRouter } from "next/navigation";

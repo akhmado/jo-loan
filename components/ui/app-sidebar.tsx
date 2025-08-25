@@ -14,13 +14,9 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { PAGES } from "@/lib/constants";
+import { authClient } from "@/lib/auth/client-auth";
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   teams: [
     {
       name: "Happy Corp.",
@@ -38,6 +34,7 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { data: session } = authClient.useSession();
   return (
     <Sidebar collapsible='icon' {...props}>
       <SidebarHeader>
@@ -47,7 +44,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={session?.user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

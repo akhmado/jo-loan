@@ -27,7 +27,7 @@ interface DeleteLoanDialogProps {
 export function DeleteLoanDialog({
   loanId,
   loanAmount,
-  size = 'default'
+  size = "default",
 }: DeleteLoanDialogProps) {
   const [isDeleting, setIsDeleting] = useState(false);
   const router = useRouter();
@@ -37,7 +37,7 @@ export function DeleteLoanDialog({
       setIsDeleting(true);
       await deleteLoanById(loanId);
       toast.success("Loan deleted successfully!");
-        router.push("/dashboard");
+      router.push("/dashboard");
     } catch (error) {
       console.error("Error deleting loan:", error);
       toast.error(
@@ -51,20 +51,20 @@ export function DeleteLoanDialog({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button 
-          variant={'outline'} 
+        <Button
+          variant={"outline"}
           aria-label={`Delete loan of ${loanAmount}`}
-          className="text-destructive hover:text-destructive"
+          className='text-destructive hover:text-destructive'
           size={size}
         >
-          <Trash2 className="h-4 w-4" />
+          <Trash2 className='h-4 w-4' />
           Delete
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent role="dialog" aria-labelledby="delete-dialog-title" aria-describedby="delete-dialog-description">
+      <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle id="delete-dialog-title">Delete Loan</AlertDialogTitle>
-          <AlertDialogDescription id="delete-dialog-description">
+          <AlertDialogTitle>Delete Loan</AlertDialogTitle>
+          <AlertDialogDescription>
             Are you sure you want to delete this loan of{" "}
             <strong>{loanAmount}</strong>? This action cannot be undone and will
             permanently remove the loan from your records.
@@ -75,8 +75,8 @@ export function DeleteLoanDialog({
           <AlertDialogAction
             onClick={handleDelete}
             disabled={isDeleting}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90 focus:ring-destructive"
-            aria-label="Confirm deletion"
+            className='bg-destructive text-destructive-foreground hover:bg-destructive/90 focus:ring-destructive'
+            aria-label='Confirm deletion'
           >
             {isDeleting ? "Deleting..." : "Delete"}
           </AlertDialogAction>

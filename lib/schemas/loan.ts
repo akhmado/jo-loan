@@ -1,5 +1,5 @@
 import z from "zod";
-import { LoanStatus } from "../generated/prisma";
+import { LoanStatus, $Enums } from "../generated/prisma";
 
 export type LoanFormData = z.infer<typeof loanFormSchema>;
 
@@ -30,14 +30,7 @@ export const loanFormSchema = z.object({
     ),
   purpose: z.string().optional(),
   status: z
-    .enum([
-      LoanStatus.PENDING,
-      LoanStatus.APPROVED,
-      LoanStatus.REJECTED,
-      LoanStatus.ACTIVE,
-      LoanStatus.COMPLETED,
-      LoanStatus.DEFAULTED,
-    ])
+    .enum(Object.values($Enums.LoanStatus))
     .default(LoanStatus.PENDING),
   monthlyPayment: z
     .string()

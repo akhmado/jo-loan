@@ -53,14 +53,14 @@ export default async function LoanDetailPage({ params }: LoanDetailPageProps) {
       </div>
 
       <div className='space-y-6 p-4'>
-        <div className='flex items-center justify-between'>
+        <div className='flex flex-col justify-between gap-2 md:flex-row md:items-center'>
           <div>
             <h1 className='text-2xl font-bold'>Loan Details</h1>
             <p className='text-muted-foreground'>ID: {loan.id}</p>
           </div>
           <div className='flex items-center gap-2'>
             <Button variant='outline' asChild>
-              <Link 
+              <Link
                 href={`/dashboard/loan/${loan.id}/edit`}
                 aria-label={`Edit loan ${loan.id.slice(-8)}`}
               >
@@ -72,50 +72,76 @@ export default async function LoanDetailPage({ params }: LoanDetailPageProps) {
               loanAmount={`$${loan.amount.toLocaleString()}`}
             />
             <Button variant='outline' asChild>
-              <Link 
-                href='/dashboard'
-                aria-label="Return to loans dashboard"
-              >
+              <Link href='/dashboard' aria-label='Return to loans dashboard'>
                 Back to Dashboard
               </Link>
             </Button>
           </div>
         </div>
 
-        <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3' role="region" aria-label="Loan overview">
-          <Card role="article" aria-labelledby="loan-amount-title">
+        <div
+          className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'
+          role='region'
+          aria-label='Loan overview'
+        >
+          <Card role='article' aria-labelledby='loan-amount-title'>
             <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-              <CardTitle id="loan-amount-title" className='text-sm font-medium'>Loan Amount</CardTitle>
-              <DollarSignIcon className='text-muted-foreground h-4 w-4' aria-hidden="true" />
+              <CardTitle id='loan-amount-title' className='text-sm font-medium'>
+                Loan Amount
+              </CardTitle>
+              <DollarSignIcon
+                className='text-muted-foreground h-4 w-4'
+                aria-hidden='true'
+              />
             </CardHeader>
             <CardContent>
-              <div className='text-2xl font-bold' aria-label={`Loan amount is ${loan.amount.toLocaleString()} dollars`}>
+              <div
+                className='text-2xl font-bold'
+                aria-label={`Loan amount is ${loan.amount.toLocaleString()} dollars`}
+              >
                 ${loan.amount.toLocaleString()}
               </div>
             </CardContent>
           </Card>
 
-          <Card role="article" aria-labelledby="interest-rate-title">
+          <Card role='article' aria-labelledby='interest-rate-title'>
             <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-              <CardTitle id="interest-rate-title" className='text-sm font-medium'>
+              <CardTitle
+                id='interest-rate-title'
+                className='text-sm font-medium'
+              >
                 Interest Rate
               </CardTitle>
-              <PercentIcon className='text-muted-foreground h-4 w-4' aria-hidden="true" />
+              <PercentIcon
+                className='text-muted-foreground h-4 w-4'
+                aria-hidden='true'
+              />
             </CardHeader>
             <CardContent>
-              <div className='text-2xl font-bold' aria-label={`Interest rate is ${loan.interestRate.toFixed(2)} percent`}>
+              <div
+                className='text-2xl font-bold'
+                aria-label={`Interest rate is ${loan.interestRate.toFixed(2)} percent`}
+              >
                 {loan.interestRate.toFixed(2)}%
               </div>
             </CardContent>
           </Card>
 
-          <Card role="article" aria-labelledby="term-title">
+          <Card role='article' aria-labelledby='term-title'>
             <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-              <CardTitle id="term-title" className='text-sm font-medium'>Term</CardTitle>
-              <ClockIcon className='text-muted-foreground h-4 w-4' aria-hidden="true" />
+              <CardTitle id='term-title' className='text-sm font-medium'>
+                Term
+              </CardTitle>
+              <ClockIcon
+                className='text-muted-foreground h-4 w-4'
+                aria-hidden='true'
+              />
             </CardHeader>
             <CardContent>
-              <div className='text-2xl font-bold' aria-label={`Loan term is ${loan.termMonths} months`}>
+              <div
+                className='text-2xl font-bold'
+                aria-label={`Loan term is ${loan.termMonths} months`}
+              >
                 {loan.termMonths} months
               </div>
             </CardContent>

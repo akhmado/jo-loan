@@ -27,7 +27,7 @@ export function StatusBadge({ status }: StatusBadgeProps) {
   return (
     <span
       className={`rounded-full px-2 py-1 text-xs font-medium ${statusColors[status]}`}
-      role="status"
+      role='status'
       aria-label={statusDescriptions[status]}
       title={statusDescriptions[status]}
     >

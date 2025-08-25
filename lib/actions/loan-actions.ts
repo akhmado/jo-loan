@@ -3,7 +3,9 @@
 import { prisma } from "@/lib/db";
 import { getUserOrRedirect } from "@/lib/auth/server-auth";
 import { loanFormSchema, LoanFormData } from "../schemas/loan";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { PAGES } from "../constants";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
 
 //TODO: Refactor create/update functions
 export async function createLoan(data: LoanFormData) {
@@ -70,11 +72,12 @@ export async function getDetailedLoanById(id: string) {
     });
 
     if (!loan) {
-      return notFound();
+      redirect(PAGES.DASHBOARD);
     }
 
     return loan;
   } catch (error) {
+    if (isRedirectError(error)) throw error;
     console.log(error);
     throw error;
   }
