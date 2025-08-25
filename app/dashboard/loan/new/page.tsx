@@ -37,7 +37,7 @@ export default function NewLoanPage() {
   };
 
   return (
-    <div className="container mx-auto py-8">
+    <div className='container mx-auto py-8'>
       <Card>
         <CardHeader>
           <CardTitle>Create New Loan</CardTitle>

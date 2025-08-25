@@ -13,6 +13,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { PAGES } from "@/lib/constants";
 
 const data = {
   user: {
@@ -30,7 +31,7 @@ const data = {
   projects: [
     {
       name: "Loans",
-      url: "#",
+      url: PAGES.DASHBOARD,
       icon: Frame,
     },
   ],
@@ -38,7 +39,7 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar collapsible='icon' {...props}>
       <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>

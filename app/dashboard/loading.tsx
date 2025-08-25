@@ -29,33 +29,33 @@ export default function LoansLoadingPage() {
           {Array.from({ length: 5 }).map((_, index) => (
             <TableRow key={index}>
               <TableCell>
-                <Skeleton className="h-4 w-16" />
+                <Skeleton className='h-4 w-16' />
               </TableCell>
               <TableCell>
-                <Skeleton className="h-4 w-20" />
+                <Skeleton className='h-4 w-20' />
               </TableCell>
               <TableCell>
-                <Skeleton className="h-4 w-12" />
+                <Skeleton className='h-4 w-12' />
               </TableCell>
               <TableCell>
-                <Skeleton className="h-4 w-20" />
+                <Skeleton className='h-4 w-20' />
               </TableCell>
               <TableCell>
-                <Skeleton className="h-6 w-16 rounded-full" />
+                <Skeleton className='h-6 w-16 rounded-full' />
               </TableCell>
               <TableCell>
-                <Skeleton className="h-4 w-24" />
+                <Skeleton className='h-4 w-24' />
               </TableCell>
               <TableCell>
-                <Skeleton className="h-4 w-20" />
+                <Skeleton className='h-4 w-20' />
               </TableCell>
               <TableCell>
-                <Skeleton className="h-4 w-16" />
+                <Skeleton className='h-4 w-16' />
               </TableCell>
               <TableCell>
-                <div className="flex gap-2">
-                  <Skeleton className="h-8 w-12" />
-                  <Skeleton className="h-8 w-12" />
+                <div className='flex gap-2'>
+                  <Skeleton className='h-8 w-12' />
+                  <Skeleton className='h-8 w-12' />
                 </div>
               </TableCell>
             </TableRow>

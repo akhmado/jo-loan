@@ -24,7 +24,7 @@ const getStatusBadge = (status: LoanStatus) => {
 
   return (
     <span
-      className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[status]}`}
+      className={`rounded-full px-2 py-1 text-xs font-medium ${statusColors[status]}`}
     >
       {status}
     </span>
@@ -35,7 +35,7 @@ export default async function Page() {
   const { user } = await getUserOrRedirect();
   const loans = await prisma.loan.findMany({
     where: { userId: user.id },
-    orderBy: { createdAt: 'desc' }
+    orderBy: { createdAt: "desc" },
   });
 
   return (
@@ -57,10 +57,10 @@ export default async function Page() {
         <TableBody>
           {loans.map((loan) => (
             <TableRow key={loan.id}>
-              <TableCell className="text-sm text-gray-600">
+              <TableCell className='text-sm text-gray-600'>
                 {loan.id.slice(-8)}
               </TableCell>
-              <TableCell className="font-medium">
+              <TableCell className='font-medium'>
                 ${loan.amount.toLocaleString()}
               </TableCell>
               <TableCell>{loan.interestRate.toFixed(2)}%</TableCell>
@@ -72,15 +72,15 @@ export default async function Page() {
                   ? `$${loan.monthlyPayment.toLocaleString()}`
                   : "-"}
               </TableCell>
-              <TableCell className="text-sm text-gray-600">
+              <TableCell className='text-sm text-gray-600'>
                 {loan.createdAt.toLocaleDateString()}
               </TableCell>
               <TableCell>
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm">
+                <div className='flex gap-2'>
+                  <Button variant='outline' size='sm'>
                     View
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button variant='outline' size='sm'>
                     Edit
                   </Button>
                 </div>

@@ -10,7 +10,9 @@
     "dev:db:start": "prisma dev",
     "dev:db:studio": "prisma studio",
     "generate-auth-tables": "npx @better-auth/cli generate",
-    "create-user": "tsx ./scripts/create-user.ts"
+    "create-user": "tsx ./scripts/create-user.ts",
+    "prettier": "prettier --check --ignore-path .gitignore .",
+    "prettier:fix": "prettier --write --ignore-path .gitignore ."
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
@@ -44,6 +46,8 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.0",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "prisma": "^6.14.0",
     "tailwindcss": "^4",
     "tsx": "^4.20.5",

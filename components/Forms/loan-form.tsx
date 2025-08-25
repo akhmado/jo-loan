@@ -50,19 +50,19 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+        <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
           <FormField
             control={form.control}
-            name="amount"
+            name='amount'
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Loan Amount</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="25000"
-                    type="number"
-                    step="0.01"
+                    placeholder='25000'
+                    type='number'
+                    step='0.01'
                     {...field}
                   />
                 </FormControl>
@@ -76,15 +76,15 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
 
           <FormField
             control={form.control}
-            name="interestRate"
+            name='interestRate'
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Interest Rate (%)</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="7.5"
-                    type="number"
-                    step="0.01"
+                    placeholder='7.5'
+                    type='number'
+                    step='0.01'
                     {...field}
                   />
                 </FormControl>
@@ -98,12 +98,12 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
 
           <FormField
             control={form.control}
-            name="termMonths"
+            name='termMonths'
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Term (Months)</FormLabel>
                 <FormControl>
-                  <Input placeholder="60" type="number" {...field} />
+                  <Input placeholder='60' type='number' {...field} />
                 </FormControl>
                 <FormDescription>Loan term in months (1-480)</FormDescription>
                 <FormMessage />
@@ -113,7 +113,7 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
 
           <FormField
             control={form.control}
-            name="status"
+            name='status'
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Status</FormLabel>
@@ -123,7 +123,7 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
                 >
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select loan status" />
+                      <SelectValue placeholder='Select loan status' />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -152,13 +152,13 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
 
         <FormField
           control={form.control}
-          name="purpose"
+          name='purpose'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Purpose (Optional)</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Home renovation, debt consolidation, etc."
+                  placeholder='Home renovation, debt consolidation, etc.'
                   {...field}
                 />
               </FormControl>
@@ -170,18 +170,18 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
           )}
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className='grid grid-cols-1 gap-6 md:grid-cols-3'>
           <FormField
             control={form.control}
-            name="monthlyPayment"
+            name='monthlyPayment'
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Monthly Payment (Optional)</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="501.82"
-                    type="number"
-                    step="0.01"
+                    placeholder='501.82'
+                    type='number'
+                    step='0.01'
                     {...field}
                   />
                 </FormControl>
@@ -195,15 +195,15 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
 
           <FormField
             control={form.control}
-            name="totalInterest"
+            name='totalInterest'
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Total Interest (Optional)</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="5109.20"
-                    type="number"
-                    step="0.01"
+                    placeholder='5109.20'
+                    type='number'
+                    step='0.01'
                     {...field}
                   />
                 </FormControl>
@@ -215,15 +215,15 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
 
           <FormField
             control={form.control}
-            name="totalAmount"
+            name='totalAmount'
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Total Amount (Optional)</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="30109.20"
-                    type="number"
-                    step="0.01"
+                    placeholder='30109.20'
+                    type='number'
+                    step='0.01'
                     {...field}
                   />
                 </FormControl>
@@ -234,15 +234,15 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
           <FormField
             control={form.control}
-            name="startDate"
+            name='startDate'
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Start Date (Optional)</FormLabel>
                 <FormControl>
-                  <Input type="date" {...field} />
+                  <Input type='date' {...field} />
                 </FormControl>
                 <FormDescription>Loan start date</FormDescription>
                 <FormMessage />
@@ -252,12 +252,12 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
 
           <FormField
             control={form.control}
-            name="endDate"
+            name='endDate'
             render={({ field }) => (
               <FormItem>
                 <FormLabel>End Date (Optional)</FormLabel>
                 <FormControl>
-                  <Input type="date" {...field} />
+                  <Input type='date' {...field} />
                 </FormControl>
                 <FormDescription>Expected loan end date</FormDescription>
                 <FormMessage />
@@ -266,8 +266,8 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
           />
         </div>
 
-        <div className="flex justify-end space-x-4">
-          <Button type="submit" disabled={isSubmitting}>
+        <div className='flex justify-end space-x-4'>
+          <Button type='submit' disabled={isSubmitting}>
             {isSubmitting ? "Saving..." : "Save Loan"}
           </Button>
         </div>

@@ -44,54 +44,54 @@ export function LoginForm({ className, onSubmit, ...props }: LoginFormProps) {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col gap-6">
-              <div className="grid gap-3">
-                <Label htmlFor="email">Email</Label>
+            <div className='flex flex-col gap-6'>
+              <div className='grid gap-3'>
+                <Label htmlFor='email'>Email</Label>
                 <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
+                  id='email'
+                  type='email'
+                  placeholder='m@example.com'
                   {...register("email")}
                 />
                 {errors.email && (
-                  <p className="text-sm text-red-500">{errors.email.message}</p>
+                  <p className='text-sm text-red-500'>{errors.email.message}</p>
                 )}
               </div>
-              <div className="grid gap-3">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
+              <div className='grid gap-3'>
+                <div className='flex items-center'>
+                  <Label htmlFor='password'>Password</Label>
                   <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                    href='#'
+                    className='ml-auto inline-block text-sm underline-offset-4 hover:underline'
                   >
                     Forgot your password?
                   </a>
                 </div>
                 <Input
-                  id="password"
-                  type="password"
-                  placeholder="******"
+                  id='password'
+                  type='password'
+                  placeholder='******'
                   {...register("password")}
                 />
                 {errors.password && (
-                  <p className="text-sm text-red-500">
+                  <p className='text-sm text-red-500'>
                     {errors.password.message}
                   </p>
                 )}
               </div>
-              <div className="flex flex-col gap-3">
+              <div className='flex flex-col gap-3'>
                 <Button
-                  type="submit"
-                  className="w-full"
+                  type='submit'
+                  className='w-full'
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Logging in..." : "Login"}
                 </Button>
               </div>
             </div>
-            <div className="mt-4 text-center text-sm">
+            <div className='mt-4 text-center text-sm'>
               Don&apos;t have an account?{" "}
-              <a href="#" className="underline underline-offset-4">
+              <a href='#' className='underline underline-offset-4'>
                 Sign up
               </a>
             </div>
