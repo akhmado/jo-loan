@@ -34,7 +34,7 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
       interestRate: "",
       termMonths: "",
       purpose: "",
-      status: "PENDING",
+      status: LoanStatus.PENDING,
       monthlyPayment: "",
       totalInterest: "",
       totalAmount: "",
@@ -64,11 +64,11 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
             aria-describedby='amount-error amount-help'
             {...register("amount")}
           />
-          <p id='amount-help' className='text-xs text-muted-foreground'>
+          <p id='amount-help' className='text-muted-foreground text-xs'>
             Enter the loan amount in dollars
           </p>
           {errors.amount && (
-            <p id='amount-error' className='text-sm text-red-500' role="alert">
+            <p id='amount-error' className='text-sm text-red-500' role='alert'>
               {errors.amount.message}
             </p>
           )}
@@ -84,11 +84,15 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
             aria-describedby='interestRate-error interestRate-help'
             {...register("interestRate")}
           />
-          <p id='interestRate-help' className='text-xs text-muted-foreground'>
+          <p id='interestRate-help' className='text-muted-foreground text-xs'>
             Annual interest rate as a percentage
           </p>
           {errors.interestRate && (
-            <p id='interestRate-error' className='text-sm text-red-500' role="alert">
+            <p
+              id='interestRate-error'
+              className='text-sm text-red-500'
+              role='alert'
+            >
               {errors.interestRate.message}
             </p>
           )}
@@ -103,11 +107,15 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
             aria-describedby='termMonths-error termMonths-help'
             {...register("termMonths")}
           />
-          <p id='termMonths-help' className='text-xs text-muted-foreground'>
+          <p id='termMonths-help' className='text-muted-foreground text-xs'>
             Loan term in months (1-480)
           </p>
           {errors.termMonths && (
-            <p id='termMonths-error' className='text-sm text-red-500' role="alert">
+            <p
+              id='termMonths-error'
+              className='text-sm text-red-500'
+              role='alert'
+            >
               {errors.termMonths.message}
             </p>
           )}
@@ -119,7 +127,10 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
             onValueChange={(value) => setValue("status", value as LoanStatus)}
             defaultValue={statusValue}
           >
-            <SelectTrigger id='status' aria-describedby='status-error status-help'>
+            <SelectTrigger
+              id='status'
+              aria-describedby='status-error status-help'
+            >
               <SelectValue placeholder='Select loan status' />
             </SelectTrigger>
             <SelectContent>
@@ -131,11 +142,11 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
               <SelectItem value={LoanStatus.DEFAULTED}>Defaulted</SelectItem>
             </SelectContent>
           </Select>
-          <p id='status-help' className='text-xs text-muted-foreground'>
+          <p id='status-help' className='text-muted-foreground text-xs'>
             Current loan status
           </p>
           {errors.status && (
-            <p id='status-error' className='text-sm text-red-500' role="alert">
+            <p id='status-error' className='text-sm text-red-500' role='alert'>
               {errors.status.message}
             </p>
           )}
@@ -150,11 +161,11 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
           aria-describedby='purpose-error purpose-help'
           {...register("purpose")}
         />
-        <p id='purpose-help' className='text-xs text-muted-foreground'>
+        <p id='purpose-help' className='text-muted-foreground text-xs'>
           Brief description of the loan purpose
         </p>
         {errors.purpose && (
-          <p id='purpose-error' className='text-sm text-red-500' role="alert">
+          <p id='purpose-error' className='text-sm text-red-500' role='alert'>
             {errors.purpose.message}
           </p>
         )}
@@ -171,11 +182,15 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
             aria-describedby='monthlyPayment-error monthlyPayment-help'
             {...register("monthlyPayment")}
           />
-          <p id='monthlyPayment-help' className='text-xs text-muted-foreground'>
+          <p id='monthlyPayment-help' className='text-muted-foreground text-xs'>
             Calculated or estimated monthly payment
           </p>
           {errors.monthlyPayment && (
-            <p id='monthlyPayment-error' className='text-sm text-red-500' role="alert">
+            <p
+              id='monthlyPayment-error'
+              className='text-sm text-red-500'
+              role='alert'
+            >
               {errors.monthlyPayment.message}
             </p>
           )}
@@ -191,11 +206,15 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
             aria-describedby='totalInterest-error totalInterest-help'
             {...register("totalInterest")}
           />
-          <p id='totalInterest-help' className='text-xs text-muted-foreground'>
+          <p id='totalInterest-help' className='text-muted-foreground text-xs'>
             Total interest over loan term
           </p>
           {errors.totalInterest && (
-            <p id='totalInterest-error' className='text-sm text-red-500' role="alert">
+            <p
+              id='totalInterest-error'
+              className='text-sm text-red-500'
+              role='alert'
+            >
               {errors.totalInterest.message}
             </p>
           )}
@@ -211,11 +230,15 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
             aria-describedby='totalAmount-error totalAmount-help'
             {...register("totalAmount")}
           />
-          <p id='totalAmount-help' className='text-xs text-muted-foreground'>
+          <p id='totalAmount-help' className='text-muted-foreground text-xs'>
             Total amount to be repaid
           </p>
           {errors.totalAmount && (
-            <p id='totalAmount-error' className='text-sm text-red-500' role="alert">
+            <p
+              id='totalAmount-error'
+              className='text-sm text-red-500'
+              role='alert'
+            >
               {errors.totalAmount.message}
             </p>
           )}
@@ -231,11 +254,15 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
             aria-describedby='startDate-error startDate-help'
             {...register("startDate")}
           />
-          <p id='startDate-help' className='text-xs text-muted-foreground'>
+          <p id='startDate-help' className='text-muted-foreground text-xs'>
             Loan start date
           </p>
           {errors.startDate && (
-            <p id='startDate-error' className='text-sm text-red-500' role="alert">
+            <p
+              id='startDate-error'
+              className='text-sm text-red-500'
+              role='alert'
+            >
               {errors.startDate.message}
             </p>
           )}
@@ -249,11 +276,11 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
             aria-describedby='endDate-error endDate-help'
             {...register("endDate")}
           />
-          <p id='endDate-help' className='text-xs text-muted-foreground'>
+          <p id='endDate-help' className='text-muted-foreground text-xs'>
             Expected loan end date
           </p>
           {errors.endDate && (
-            <p id='endDate-error' className='text-sm text-red-500' role="alert">
+            <p id='endDate-error' className='text-sm text-red-500' role='alert'>
               {errors.endDate.message}
             </p>
           )}
@@ -261,8 +288,8 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
       </div>
 
       <div className='flex justify-end space-x-4'>
-        <Button 
-          type='submit' 
+        <Button
+          type='submit'
           disabled={isSubmitting}
           aria-label={isSubmitting ? "Saving loan..." : "Save loan"}
         >

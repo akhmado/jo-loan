@@ -3,54 +3,58 @@
 import { prisma } from "@/lib/db";
 import { getUserOrRedirect } from "@/lib/auth/server-auth";
 import { loanFormSchema, LoanFormData } from "../schemas/loan";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { PAGES } from "../constants";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 
-//TODO: Refactor create/update functions
+function getSerializedData(data: LoanFormData) {
+  // Validate data using the same schema as the form
+  const validatedData = loanFormSchema.parse(data);
+
+  // Parse numeric values
+  const amount = parseFloat(validatedData.amount);
+  const interestRate = parseFloat(validatedData.interestRate);
+  const termMonths = parseInt(validatedData.termMonths);
+
+  // Parse optional numeric fields
+  const monthlyPayment = validatedData.monthlyPayment
+    ? parseFloat(validatedData.monthlyPayment)
+    : null;
+  const totalInterest = validatedData.totalInterest
+    ? parseFloat(validatedData.totalInterest)
+    : null;
+  const totalAmount = validatedData.totalAmount
+    ? parseFloat(validatedData.totalAmount)
+    : null;
+
+  // Parse optional dates
+  const startDate = validatedData.startDate
+    ? new Date(validatedData.startDate)
+    : null;
+  const endDate = validatedData.endDate
+    ? new Date(validatedData.endDate)
+    : null;
+
+  return {
+    ...validatedData,
+    amount,
+    interestRate,
+    termMonths,
+    monthlyPayment,
+    totalInterest,
+    totalAmount,
+    startDate,
+    endDate,
+  };
+}
+
 export async function createLoan(data: LoanFormData) {
   try {
     const { user } = await getUserOrRedirect();
-
-    // Validate data using the same schema as the form
-    const validatedData = loanFormSchema.parse(data);
-
-    // // Parse numeric values
-    const amount = parseFloat(validatedData.amount);
-    const interestRate = parseFloat(validatedData.interestRate);
-    const termMonths = parseInt(validatedData.termMonths);
-
-    // Parse optional numeric fields
-    const monthlyPayment = validatedData.monthlyPayment
-      ? parseFloat(validatedData.monthlyPayment)
-      : null;
-    const totalInterest = validatedData.totalInterest
-      ? parseFloat(validatedData.totalInterest)
-      : null;
-    const totalAmount = validatedData.totalAmount
-      ? parseFloat(validatedData.totalAmount)
-      : null;
-
-    // Parse optional dates
-    const startDate = validatedData.startDate
-      ? new Date(validatedData.startDate)
-      : null;
-    const endDate = validatedData.endDate
-      ? new Date(validatedData.endDate)
-      : null;
-
+    const serializedData = getSerializedData(data);
     await prisma.loan.create({
       data: {
-        amount,
-        interestRate,
-        termMonths,
-        purpose: validatedData.purpose || null,
-        status: validatedData.status,
-        monthlyPayment,
-        totalInterest,
-        totalAmount,
-        startDate,
-        endDate,
+        ...serializedData,
         userId: user.id,
       },
     });
@@ -96,57 +100,21 @@ export async function updateLoanById(id: string, data: LoanFormData) {
     });
 
     if (!existingLoan) {
-      return notFound();
+      redirect(PAGES.DASHBOARD);
     }
 
-    // Validate data using the same schema as the form
-    const validatedData = loanFormSchema.parse(data);
-
-    // Parse numeric values
-    const amount = parseFloat(validatedData.amount);
-    const interestRate = parseFloat(validatedData.interestRate);
-    const termMonths = parseInt(validatedData.termMonths);
-
-    // Parse optional numeric fields
-    const monthlyPayment = validatedData.monthlyPayment
-      ? parseFloat(validatedData.monthlyPayment)
-      : null;
-    const totalInterest = validatedData.totalInterest
-      ? parseFloat(validatedData.totalInterest)
-      : null;
-    const totalAmount = validatedData.totalAmount
-      ? parseFloat(validatedData.totalAmount)
-      : null;
-
-    // Parse optional dates
-    const startDate = validatedData.startDate
-      ? new Date(validatedData.startDate)
-      : null;
-    const endDate = validatedData.endDate
-      ? new Date(validatedData.endDate)
-      : null;
-
+    const serializedData = getSerializedData(data);
     const updatedLoan = await prisma.loan.update({
       where: {
         id,
         userId: user.id,
       },
-      data: {
-        amount,
-        interestRate,
-        termMonths,
-        purpose: validatedData.purpose || null,
-        status: validatedData.status,
-        monthlyPayment,
-        totalInterest,
-        totalAmount,
-        startDate,
-        endDate,
-      },
+      data: serializedData,
     });
 
     return updatedLoan;
   } catch (error) {
+    if (isRedirectError(error)) throw error;
     console.log(error);
     throw error;
   }
@@ -165,7 +133,7 @@ export async function deleteLoanById(id: string) {
     });
 
     if (!existingLoan) {
-      return notFound();
+      redirect(PAGES.DASHBOARD);
     }
 
     await prisma.loan.delete({
@@ -177,6 +145,7 @@ export async function deleteLoanById(id: string) {
 
     return { success: true };
   } catch (error) {
+    if (isRedirectError(error)) throw error;
     console.log(error);
     throw error;
   }

@@ -45,9 +45,9 @@ export function LoginForm({ className, onSubmit, ...props }: LoginFormProps) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form 
+          <form
             onSubmit={handleSubmit(onSubmit)}
-            aria-label="Login form"
+            aria-label='Login form'
             noValidate
           >
             <div className='flex flex-col gap-6'>
@@ -61,7 +61,11 @@ export function LoginForm({ className, onSubmit, ...props }: LoginFormProps) {
                   {...register("email")}
                 />
                 {errors.email && (
-                  <p id='email-error' className='text-sm text-red-500' role="alert">
+                  <p
+                    id='email-error'
+                    className='text-sm text-red-500'
+                    role='alert'
+                  >
                     {errors.email.message}
                   </p>
                 )}
@@ -76,7 +80,11 @@ export function LoginForm({ className, onSubmit, ...props }: LoginFormProps) {
                   {...register("password")}
                 />
                 {errors.password && (
-                  <p id='password-error' className='text-sm text-red-500' role="alert">
+                  <p
+                    id='password-error'
+                    className='text-sm text-red-500'
+                    role='alert'
+                  >
                     {errors.password.message}
                   </p>
                 )}
@@ -86,7 +94,9 @@ export function LoginForm({ className, onSubmit, ...props }: LoginFormProps) {
                   type='submit'
                   className='w-full'
                   disabled={isSubmitting}
-                  aria-label={isSubmitting ? "Logging in..." : "Login to account"}
+                  aria-label={
+                    isSubmitting ? "Logging in..." : "Login to account"
+                  }
                 >
                   {isSubmitting ? "Logging in..." : "Login"}
                 </Button>
@@ -94,7 +104,10 @@ export function LoginForm({ className, onSubmit, ...props }: LoginFormProps) {
             </div>
             <div className='mt-4 text-center text-sm'>
               Don&apos;t have an account?{" "}
-              <Link href={PAGES.SIGNUP} className='underline underline-offset-4'>
+              <Link
+                href={PAGES.SIGNUP}
+                className='underline underline-offset-4'
+              >
                 Sign up
               </Link>
             </div>
