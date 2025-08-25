@@ -50,7 +50,12 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+      <form 
+        onSubmit={form.handleSubmit(onSubmit)} 
+        className='space-y-6'
+        aria-label="Loan application form"
+        noValidate
+      >
         <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
           <FormField
             control={form.control}

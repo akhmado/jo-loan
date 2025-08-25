@@ -148,3 +148,33 @@ export async function updateLoanById(id: string, data: LoanFormData) {
     throw error;
   }
 }
+
+export async function deleteLoanById(id: string) {
+  try {
+    const { user } = await getUserOrRedirect();
+
+    // Check if loan exists and belongs to user
+    const existingLoan = await prisma.loan.findFirst({
+      where: {
+        id,
+        userId: user.id,
+      },
+    });
+
+    if (!existingLoan) {
+      return notFound();
+    }
+
+    await prisma.loan.delete({
+      where: {
+        id,
+        userId: user.id,
+      },
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}

@@ -14,10 +14,22 @@ const statusColors: Record<LoanStatus, ClassNameValue> = {
   DEFAULTED: "bg-red-100 text-red-800 hover:bg-red-200",
 };
 
+const statusDescriptions: Record<LoanStatus, string> = {
+  PENDING: "Loan application is pending review",
+  APPROVED: "Loan application has been approved",
+  REJECTED: "Loan application has been rejected",
+  ACTIVE: "Loan is currently active",
+  COMPLETED: "Loan has been completed",
+  DEFAULTED: "Loan is in default",
+};
+
 export function StatusBadge({ status }: StatusBadgeProps) {
   return (
     <span
       className={`rounded-full px-2 py-1 text-xs font-medium ${statusColors[status]}`}
+      role="status"
+      aria-label={statusDescriptions[status]}
+      title={statusDescriptions[status]}
     >
       {status}
     </span>
